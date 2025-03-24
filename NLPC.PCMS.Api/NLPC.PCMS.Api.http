@@ -1,0 +1,6 @@
+@NLPC.PCMS.Api_HostAddress = http://localhost:5165
+
+GET {{NLPC.PCMS.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
