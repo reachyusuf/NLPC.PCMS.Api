@@ -12,7 +12,12 @@ namespace Mware.CollegeDreams.Infrastructure.Persistence
             //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
-       
+        public AppDBContext() //: base(options)
+        {
+            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
