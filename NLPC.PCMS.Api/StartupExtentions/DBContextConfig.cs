@@ -1,16 +1,17 @@
-﻿using Mware.CollegeDreams.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿//using Mware.CollegeDreams.Infrastructure.Persistence;
+//using Microsoft.EntityFrameworkCore;
 
-namespace NLPC.PCMS.Api.StartupExtentions
-{
-    public static class DBContextConfig
-    {
-        public static IServiceCollection AddDBContextExtension(this IServiceCollection services, IConfiguration Configuration)
-        {
-            var connString = Configuration.GetConnectionString("ConnectionString");
-            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connString!));
-            return services;
-        }
-    }
+//namespace NLPC.PCMS.Api.StartupExtentions
+//{
+//    public static class DBContextConfig
+//    {
+//        public static IServiceCollection AddDBContextExtension(this IServiceCollection services, IConfiguration Configuration)
+//        {
+//            var connString = Configuration.GetConnectionString("ConnectionString");
+//            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connString));
+//            //services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connString!));
+//            return services;
+//        }
+//    }
 
-}
+//}

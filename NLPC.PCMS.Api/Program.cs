@@ -1,9 +1,12 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
+using Mware.CollegeDreams.Infrastructure.Persistence;
 using NLPC.PCMS.Api.FiltersAndMiddlewares;
 using NLPC.PCMS.Api.StartupExtentions;
 using NLPC.PCMS.Common.DTOs;
+using NLPC.PCMS.Common.Exceptions;
 using NLPC.PCMS.Common.Utilities;
 using Serilog;
 using Serilog.Events;
@@ -29,7 +32,17 @@ var loggerConfiguration = new LoggerConfiguration()
     .MinimumLevel.Is(config.GetValue("Logging:LogLevel:Default", LogEventLevel.Information))
     .Enrich.FromLogContext();
 
-var connString = config.GetConnectionString("ConnectionString");
+//var connString = config.GetConnectionString("ConnectionString");
+//if (string.IsNullOrEmpty(connString) is true)
+//    throw new ApiException("Invalid or empty connection string");
+
+// Get the connection string from appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrEmpty(connectionString) is true)
+    throw new ApiException("Invalid or empty connection string");
+
+builder.Services.AddDbContext<AppDBContext>(options =>
+    options.UseSqlServer(connectionString));
 
 if (appSettings?.RateLimit?.Enabled is true)
 {
@@ -78,7 +91,7 @@ builder.Host.UseSerilog();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplicationLayerExtension();
-builder.Services.AddDBContextExtension(config);
+//builder.Services.AddDBContextExtension(config);
 builder.Services.AddIdentityManagerExtension(appSettings!);
 builder.Services.AddDIRegistrationExtension(config, envName!, appSettings!);
 

@@ -7,16 +7,10 @@ namespace Mware.CollegeDreams.Infrastructure.Persistence
 {
     public class AppDBContext : IdentityDbContext<UsersEntity, RoleEntity, string>
     {
-        public AppDBContext(DbContextOptions options) : base(options)
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
-            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        }
 
-        public AppDBContext() //: base(options)
-        {
-            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
