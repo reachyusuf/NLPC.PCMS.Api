@@ -87,7 +87,7 @@ builder.Services.AddSwaggerGen();
 
 // Configure FluentValidation to disable default data annotations validation
 builder.Services.AddFluentValidationAutoValidation(opt => opt.DisableDataAnnotationsValidation = true);
-builder.Services.AddValidatorsFromAssembly(Assembly.Load("Mware.CollegeDreams.Validator"));
+builder.Services.AddValidatorsFromAssembly(Assembly.Load("NLPC.PCMS.Application"));
 
 // Add controllers and other necessary services
 builder.Services.AddControllers(options =>

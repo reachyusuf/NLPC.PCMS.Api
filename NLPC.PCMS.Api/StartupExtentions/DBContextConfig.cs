@@ -1,4 +1,5 @@
 ﻿using Mware.CollegeDreams.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace NLPC.PCMS.Api.StartupExtentions
 {
@@ -7,7 +8,7 @@ namespace NLPC.PCMS.Api.StartupExtentions
         public static IServiceCollection AddDBContextExtension(this IServiceCollection services, IConfiguration Configuration)
         {
             var connString = Configuration.GetConnectionString("ConnectionString");
-            //services.AddDbContext<AppDBContext>(options => options.UseNpgsql(connString!));
+            services.AddDbContext<AppDBContext>(options => options.UseSqlServer(connString!));
             return services;
         }
     }

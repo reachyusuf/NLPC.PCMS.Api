@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using NLPC.PCMS.Common.DTOs;
 using NLPC.PCMS.Common.Exceptions;
 using System.Net.Http.Headers;
@@ -10,12 +11,10 @@ namespace NLPC.PCMS.Common.Utilities
     public class HttpClientHelperUtil
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogService _logger;
 
-        public HttpClientHelperUtil(IHttpClientFactory httpClientFactory, IOptions<AppSettingsDto> appConfigSettings, ILogService _logger)
+        public HttpClientHelperUtil(IHttpClientFactory httpClientFactory, IOptions<AppSettingsDto> appConfigSettings)
         {
             _httpClientFactory = httpClientFactory;
-            this._logger = _logger;
         }
 
         public async Task<T> GetJSON<T>(string path, IDictionary<string, string> headers)
@@ -280,8 +279,6 @@ namespace NLPC.PCMS.Common.Utilities
         private async Task<T> ProcessHttpResponse<T>(HttpResponseMessage httpResponse, string path, object? payload = null)
         {
             var result = await httpResponse.Content.ReadFromJsonAsync<T>() ?? default(T)!;
-            //--log the result
-            _logger.LogTypeResponse(payload, new { HttpStatusCode = httpResponse?.StatusCode, Content = result }, path);
             return result;
         }
     }
